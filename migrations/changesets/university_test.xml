@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.6"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.6
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.6.xsd">
+
+    <changeSet id="1" author="andrey@klimenko">
+        <createTable tableName="student">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="TEXT"/>
+            <column name="last_name" type="TEXT"/>
+            <column name="id_student_book" type="TEXT">
+                <constraints unique="true" nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="subject">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="TEXT"/>
+        </createTable>
+
+        <createTable tableName="student_mtm_subject">
+            <column name="student_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subject_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint constraintName="fk_student"
+                                 baseTableName="student_mtm_subject"
+                                 baseColumnNames="student_id"
+                                 referencedTableName="student"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint constraintName="fk_subject"
+                                 baseTableName="student_mtm_subject"
+                                 baseColumnNames="subject_id"
+                                 referencedTableName="subject"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="3" author="andrey@klimenko">
+        <createTable tableName="question">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text_question" type="TEXT"/>
+            <column name="subject_id" type="INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="subject_id"
+                                 baseTableName="question"
+                                 constraintName="fk_question"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subject"/>
+    </changeSet>
+
+    <changeSet id="4" author="andrey@klimenko" >
+        <createTable tableName="answer">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="text_answer" type="TEXT"/>
+            <column name="true_and_false_answer" type="BOOLEAN"/>
+            <column name="question_id" type="INTEGER"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="answer"
+                                 constraintName="fk_answer"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question"/>
+    </changeSet>
+</databaseChangeLog>
