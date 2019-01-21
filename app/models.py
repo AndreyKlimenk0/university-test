@@ -4,7 +4,7 @@ from sqlalchemy import MetaData, Table, Column, Integer, String, Text, Boolean, 
 metadata = MetaData()
 
 
-association_table = Table(
+Association_table = Table(
     'subject_student_table',
     metadata,
     Column('student_id', Integer, ForeignKey('student.id')),
@@ -12,7 +12,7 @@ association_table = Table(
 )
 
 
-student = Table(
+Student = Table(
     'student',
     metadata,
     Column('id', Integer, primary_key=True),
@@ -21,7 +21,7 @@ student = Table(
     Column('id_student_book', Integer, nullable=False, unique=True),
 )
 
-subject = Table(
+Subject = Table(
     'subject',
     metadata,
     Column('id', Integer, primary_key=True),
@@ -29,7 +29,7 @@ subject = Table(
 )
 
 
-question = Table(
+Question = Table(
     'question',
     metadata,
     Column('id', Integer, primary_key=True),
@@ -38,7 +38,7 @@ question = Table(
 )
 
 
-answer = Table(
+Answer = Table(
     'answer',
     metadata,
     Column('id', Integer, primary_key=True),
