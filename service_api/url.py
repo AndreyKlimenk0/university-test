@@ -1,5 +1,5 @@
 from service_api.app import app, test
-from service_api.resources.student import StudentResource
+from service_api.resources.resources_student import StudentResource
 
 
 def load_url(app_sanic):

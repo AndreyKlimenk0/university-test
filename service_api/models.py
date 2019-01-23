@@ -18,6 +18,7 @@ Student = Table(
     Column('id', Integer, primary_key=True),
     Column('first_name', String, nullable=False),
     Column('last_name', String, nullable=False),
+    Column('email', String, nullable=False),
     Column('id_student_book', Integer, nullable=False, unique=True),
 )
 

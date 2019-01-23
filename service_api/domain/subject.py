@@ -1,6 +1,7 @@
 from typing import Dict
 from service_api.models import Subject
 from service_api.database import get_engine
+from sqlalchemy import literal_column
 
 
 async def get_subject(subject_id: int) -> Dict:
@@ -16,10 +17,9 @@ async def get_subject(subject_id: int) -> Dict:
 
 async def create_subject(data: Dict) -> Dict:
     engine = await get_engine()
-    print(data)
     async with engine.acquire() as connect:
         async with connect.execute(
-                Subject.insert().values(
+                Subject.insert().returning(literal_column('*')).values(
                     data
                 )) as cur_subject:
             subject = await cur_subject.fetchone()

@@ -1,4 +1,4 @@
-from aiopg.sa import create_engine, Engine
+from aiopg.sa import create_engine
 
 
 async def get_engine():

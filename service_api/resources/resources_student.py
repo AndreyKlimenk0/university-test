@@ -11,20 +11,20 @@ class StudentResource(BaseResource):
         data = {} if not request.json else request.json.copy()
         data, _ = StudentSchema(strict=True).dump(data)
         student = await create_student(data=data)
-        return json({'created_student': student.items()})
+        return json({**student})
 
     async def get(self, request, student_id):
         student = await get_student(student_id)
-        return json({'student': student.values()})
+        return json({**student})
 
     async def put(self, request):
         data = {} if not request.json else request.json.copy()
         data, _ = StudentSchema(strict=True).dump(data)
-        await update_student(data=data)
-        return json({'status': 'ok'})
+        student = await update_student(data=data)
+        return json({**student})
 
     async def delete(self, request):
         data = {} if not request.json else request.json.copy()
         data, _ = StudentSchema(strict=True).dump(data)
         await delete_student(data=data)
-        return json({'status': 'ok'})
+        return json({'status': '200 ok'})

@@ -12,12 +12,10 @@ class QuestionResources(BaseResource):
         return json({'question': question})
 
     async def post(self, request):
-        print(request.json)
         data = {} if not request.json else request.json.copy()
         data, _ = QuestionSchema(strict=True).dump(data)
-        print(data)
         created_question = await  create_question(data=data)
-        return json({'created_question': created_question})
+        return json({**created_question})
 
     async def put(self):
         pass
