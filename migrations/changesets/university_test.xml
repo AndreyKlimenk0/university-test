@@ -16,6 +16,9 @@
             <column name="email" type="TEXT">
                 <constraints nullable="false"/>
             </column>
+            <column name="password" type="varchar(255)">
+                <constraints unique="true" nullable="false" />
+            </column>
             <column name="id_student_book" type="TEXT">
                 <constraints unique="true" nullable="false" />
             </column>

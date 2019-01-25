@@ -1,23 +1,14 @@
-from sanic import Sanic
 from sanic import response
-from sanic_auth import User, Auth
 
-from service_api.urls import load_url
 from service_api.domain.student import get_student
 
-app = Sanic()
-app.config.AUTH_LOGIN_ENDPOINT = 'login'
-auth = Auth(app)
-
-load_url(app)
 
 LOGIN_FORM = '''
 <h2>Please sign in, you can try:</h2>
 <dl>
-<dt>Username</dt> <dd>demo</dd>
-<dt>Password</dt> <dd>1234</dd>
+<dt>Usernam</dt>
+<dt>Password</dt>
 </dl>
-<p>{}</p>
 <form action="" method="POST">
   <input class="username" id="name" name="id_student_book"
     placeholder="id student book" type="text" value=""><br>
@@ -36,6 +27,7 @@ async def add_session(request):
 
 
 async def login(request):
+
     print('req', request)
     if request.method == 'POST':
         id_student = request.form.get('id_student_book')
@@ -52,9 +44,3 @@ async def login(request):
 async def welcome(request):
     return response.html('<h3>Welcome')
 
-
-app.add_route(welcome, '/')
-app.add_route(login, '/login', methods=['GET', 'POST'])
-
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000)

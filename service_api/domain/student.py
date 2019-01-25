@@ -24,8 +24,6 @@ async def update_student(data: Dict):
         async with connect.execute(
                 Student.update().returning(literal_column('*')).where(
                     Student.c.id_student_book == str(id_stud_book)).values(
-                    # first_name=data['first_name'],
-                    # last_name=data['last_name']
                     data
                 )) as cur_student:
             student = await cur_student.fetchone()
@@ -34,14 +32,16 @@ async def update_student(data: Dict):
 
 
 async def get_student(student_id) -> Dict:
+    print(student_id)
     engine = await get_engine()
     async with engine.acquire() as connect:
         async with connect.execute(
                 Student.select().where(
-                    Student.c.id == student_id
+                    Student.c.id_student_book == student_id
                 )) as student:
             student = await student.fetchone()
-    return dict(student)
+            print(student)
+            return dict(student)
 
 
 async def delete_student(data: Dict):

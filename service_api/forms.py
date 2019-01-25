@@ -5,17 +5,16 @@ class StudentSchema(Schema):
     first_name = fields.String(required=True)
     last_name = fields.String(required=True)
     email = fields.String(required=True)
+    password = fields.String(required=True)
     id_student_book = fields.Integer(required=True)
 
-    @validates(email)
+    @validates('email')
     def validate_email(self, value):
         print(value)
         if len(value) < 7:
             raise ValidationError('Length email must be more than 7')
         if len(value) > 30:
-            raise ValidationError('Length email must not be more than 300')
-        if value not in '@':
-            raise ValidationError('Does not correctness email')
+            raise ValidationError('Length email must not be more than 30')
 
 
 class SubjectSchema(Schema):
@@ -30,4 +29,3 @@ class QuestionSchema(Schema):
 class AnswerSchema(Schema):
     text_answer = fields.String(required=True)
     true_or_false_answer = fields.Boolean(required=True)
-
