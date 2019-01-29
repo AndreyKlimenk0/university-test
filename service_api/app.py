@@ -55,6 +55,3 @@ async def welcome(request):
 
 app.add_route(welcome, '/')
 app.add_route(login, '/login', methods=['GET', 'POST'])
-
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000)
