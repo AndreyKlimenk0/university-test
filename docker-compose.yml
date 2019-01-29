@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: andreyklimenko/get-stared:part1
+    build: .
+    command: python run.py
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/app
